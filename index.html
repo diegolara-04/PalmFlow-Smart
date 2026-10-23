@@ -1,148 +1,243 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PalmFlow Smart</title>
+  <meta name="theme-color" content="#173f35">
+  <title>PalmFlow Smart | Gestión de polinización líquida</title>
   <link rel="stylesheet" href="styles.css">
   <script src="app.js" defer></script>
 </head>
 <body>
   <header class="topbar">
-    <div class="brand">
-      <span class="brand-icon">🌴</span>
-      <div>
-        <h1>PalmFlow Smart</h1>
-        <p>Gestión de polinización líquida</p>
-      </div>
+    <a class="brand" href="#" aria-label="PalmFlow Smart, inicio" data-go="dashboard">
+      <span class="brand-icon" aria-hidden="true">🌴</span>
+      <span class="brand-copy">
+        <span class="brand-name">PalmFlow <span>Smart</span></span>
+        <span class="brand-subtitle">Gestión inteligente de polinización</span>
+      </span>
+    </a>
+    <div class="topbar-right">
+      <span class="system-indicator"><span class="status-dot"></span> Sistema de demostración</span>
+      <span class="demo-tag">PROTOTIPO</span>
     </div>
-    <span class="demo-tag">Prototipo visual</span>
   </header>
 
   <div class="layout">
     <aside class="sidebar">
+      <div class="sidebar-heading">ESPACIO DE TRABAJO</div>
       <p class="menu-label">MENÚ PRINCIPAL</p>
-      <button class="nav-button active" data-page="dashboard">
-        Resumen
+      <button class="nav-button active" data-page="dashboard" type="button">
+        <span class="nav-icon" aria-hidden="true">▦</span>
+        <span>Resumen</span>
       </button>
-      <button class="nav-button" data-page="registro">
-        Registrar labor
+      <button class="nav-button" data-page="registro" type="button">
+        <span class="nav-icon" aria-hidden="true">＋</span>
+        <span>Registrar labor</span>
       </button>
-      <button class="nav-button" data-page="historial">
-        Historial de labores
+      <button class="nav-button" data-page="historial" type="button">
+        <span class="nav-icon" aria-hidden="true">☷</span>
+        <span>Historial de labores</span>
       </button>
+
       <div class="sidebar-note">
-        <strong>Versión inicial</strong>
-        <p>Datos de demostración, no registros reales de la plantación.</p>
+        <span class="note-icon" aria-hidden="true">i</span>
+        <div>
+          <strong>Modo prototipo</strong>
+          <p>Los datos son de demostración y todavía no representan registros oficiales de la plantación.</p>
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <span class="footer-mark">PF</span>
+        <span><strong>PalmFlow Smart</strong><small>Prototipo en desarrollo</small></span>
       </div>
     </aside>
 
     <main class="content">
       <section id="dashboard" class="page">
-        <p class="eyebrow">PANEL DE CONTROL</p>
-        <h2>Resumen de actividad</h2>
-        <p class="intro">
-          Consulta las labores registradas en este prototipo.
-        </p>
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-line"></span> PANEL DE CONTROL</p>
+            <h1>Resumen de actividad</h1>
+            <p class="intro">Una vista general de las labores registradas en el prototipo.</p>
+          </div>
+          <button class="primary-button heading-action" data-go="registro" type="button">
+            <span aria-hidden="true">＋</span> Nuevo registro
+          </button>
+        </div>
+
+        <div class="welcome-banner">
+          <div class="welcome-copy">
+            <span class="banner-kicker">PALMFlow SMART · CAMPO Y OPERACIONES</span>
+            <h2>La información de campo, más organizada.</h2>
+            <p>Registra las labores y consulta su estado desde un solo lugar.</p>
+          </div>
+          <div class="banner-art" aria-hidden="true">
+            <span class="sun"></span>
+            <span class="hill hill-back"></span>
+            <span class="hill hill-front"></span>
+            <span class="palm-illustration">🌴</span>
+          </div>
+        </div>
+
+        <div class="section-title-row">
+          <div>
+            <h2 class="section-title">Indicadores generales</h2>
+            <p class="section-description">Actividad registrada en esta demostración</p>
+          </div>
+          <span class="live-label"><span class="status-dot"></span> Datos del prototipo</span>
+        </div>
 
         <div class="stats">
-          <article class="stat-card">
-            <span>Registros realizados</span>
+          <article class="stat-card stat-primary">
+            <div class="stat-topline">
+              <span class="stat-icon" aria-hidden="true">▤</span>
+              <span class="stat-label">REGISTROS REALIZADOS</span>
+            </div>
             <strong id="totalRegistros">0</strong>
+            <span class="stat-footnote">Total de labores guardadas</span>
+            <span class="stat-accent"></span>
           </article>
           <article class="stat-card">
-            <span>Descapachos</span>
+            <div class="stat-topline">
+              <span class="stat-icon icon-sage" aria-hidden="true">♧</span>
+              <span class="stat-label">DESCAPACHOS</span>
+            </div>
             <strong id="totalDescapachos">0</strong>
+            <span class="stat-footnote">Labores de descapacho</span>
+            <span class="stat-accent accent-sage"></span>
           </article>
           <article class="stat-card">
-            <span>Aplicaciones registradas</span>
+            <div class="stat-topline">
+              <span class="stat-icon icon-lime" aria-hidden="true">◉</span>
+              <span class="stat-label">APLICACIONES</span>
+            </div>
             <strong id="totalAplicaciones">0</strong>
+            <span class="stat-footnote">Aplicaciones registradas</span>
+            <span class="stat-accent accent-lime"></span>
           </article>
         </div>
 
-        <article class="panel">
-          <h3>Comienza por registrar una labor</h3>
-          <p>
-            Selecciona la palma, indica qué trabajo se realizó
-            y confirma la información antes de guardarla.
-          </p>
-          <button class="primary-button" data-go="registro">
-            + Nuevo registro
-          </button>
+        <article class="panel action-panel">
+          <div class="action-symbol" aria-hidden="true">＋</div>
+          <div class="action-copy">
+            <h3>¿Listo para registrar una labor?</h3>
+            <p>Selecciona la palma, indica qué trabajo se realizó y completa los datos de campo.</p>
+          </div>
+          <button class="secondary-green-button" data-go="registro" type="button">Registrar labor <span aria-hidden="true">→</span></button>
         </article>
+
+        <p class="page-footnote"><span aria-hidden="true">ⓘ</span> Prototipo en desarrollo. Las opciones y los procesos definitivos deben validarse con Palmasol.</p>
       </section>
 
       <section id="registro" class="page hidden">
-        <p class="eyebrow">REGISTRO DE CAMPO</p>
-        <h2>Registrar una labor</h2>
-        <p class="intro">
-          Completa los datos de ejemplo para probar el formulario.
-        </p>
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-line"></span> REGISTRO DE CAMPO</p>
+            <h1>Registrar una labor</h1>
+            <p class="intro">Completa la información de la labor para añadirla al historial de demostración.</p>
+          </div>
+          <span class="form-step"><span>01</span> Nuevo registro</span>
+        </div>
 
-        <form id="laborForm" class="panel form-grid">
-          <label>
-            Sector
-            <input name="sector" placeholder="Ej. 12" required>
-          </label>
+        <div class="form-intro-banner">
+          <span class="form-intro-icon" aria-hidden="true">✳</span>
+          <div>
+            <strong>Registra la actividad con claridad</strong>
+            <p>Verifica el sector, la línea y el identificador de la palma antes de guardar.</p>
+          </div>
+        </div>
 
-          <label>
-            Línea
-            <input name="linea" placeholder="Ej. 2" required>
-          </label>
+        <form id="laborForm" class="panel form-panel">
+          <div class="form-section-heading">
+            <span class="form-section-number">01</span>
+            <div>
+              <h2>Identificación de la palma</h2>
+              <p>Indica la ubicación de la palma donde se realizó la labor.</p>
+            </div>
+          </div>
 
-          <label>
-            Identificador de palma
-            <input name="palma" placeholder="Ej. 042" required>
-          </label>
+          <div class="form-grid">
+            <label>
+              Sector <span class="required-mark">*</span>
+              <input name="sector" placeholder="Ej. 12" autocomplete="off" required>
+            </label>
+            <label>
+              Línea <span class="required-mark">*</span>
+              <input name="linea" placeholder="Ej. 2" autocomplete="off" required>
+            </label>
+            <label class="full-width">
+              Identificador de palma <span class="required-mark">*</span>
+              <input name="palma" placeholder="Ej. 042" autocomplete="off" required>
+              <span class="field-hint">En una versión futura, este campo podría completarse escaneando un código QR.</span>
+            </label>
+          </div>
 
-          <label>
-            Tipo de labor
-            <select name="labor" required>
-              <option value="">Selecciona una labor</option>
-              <option value="Descapacho">Descapacho</option>
-              <option value="Aplicación">Aplicación de polinización</option>
-            </select>
-          </label>
+          <div class="form-divider"></div>
 
-          <label class="full-width">
-            Estado observado o labor realizada
-            <select name="estado" required>
-              <option value="">Selecciona una opción</option>
-              <option value="Realizado">Labor realizada</option>
-              <option value="Pendiente">Pendiente de realizar</option>
-              <option value="Por verificar">Requiere verificación</option>
-            </select>
-          </label>
+          <div class="form-section-heading">
+            <span class="form-section-number">02</span>
+            <div>
+              <h2>Detalles de la labor</h2>
+              <p>Selecciona el tipo de actividad y su estado actual.</p>
+            </div>
+          </div>
 
-          <label class="full-width">
-            Observaciones (opcional)
-            <textarea name="observaciones" rows="3"
-              placeholder="Información adicional..."></textarea>
-          </label>
+          <div class="form-grid">
+            <label>
+              Tipo de labor <span class="required-mark">*</span>
+              <select name="labor" required>
+                <option value="">Selecciona una labor</option>
+                <option value="Descapacho">Descapacho</option>
+                <option value="Aplicación">Aplicación de polinización</option>
+              </select>
+            </label>
+            <label>
+              Estado de la labor <span class="required-mark">*</span>
+              <select name="estado" required>
+                <option value="">Selecciona una opción</option>
+                <option value="Realizado">Labor realizada</option>
+                <option value="Pendiente">Pendiente de realizar</option>
+                <option value="Por verificar">Requiere verificación</option>
+              </select>
+            </label>
+            <label class="full-width">
+              Observaciones <span class="optional-mark">(opcional)</span>
+              <textarea name="observaciones" rows="4" placeholder="Añade información adicional sobre la labor..."></textarea>
+            </label>
+          </div>
 
-          <div class="full-width form-actions">
-            <button type="reset" class="secondary-button">Limpiar</button>
-            <button type="submit" class="primary-button">
-              Guardar registro
-            </button>
+          <div class="form-actions">
+            <span class="required-note"><span class="required-mark">*</span> Campos obligatorios</span>
+            <div class="form-action-buttons">
+              <button type="reset" class="secondary-button">Limpiar formulario</button>
+              <button type="submit" class="primary-button"><span aria-hidden="true">✓</span> Guardar registro</button>
+            </div>
           </div>
         </form>
 
-        <p class="helper">
-          Este formulario es demostrativo. Las opciones definitivas
-          deben validarse con Palmasol.
-        </p>
+        <p class="helper"><span aria-hidden="true">ⓘ</span> Los registros se guardan localmente en este navegador mientras se desarrolla la conexión a la base de datos compartida.</p>
       </section>
 
       <section id="historial" class="page hidden">
-        <p class="eyebrow">CONSULTA DE INFORMACIÓN</p>
-        <h2>Historial de labores</h2>
-        <p class="intro">
-          Registros guardados durante esta demostración.
-        </p>
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-line"></span> CONSULTA DE INFORMACIÓN</p>
+            <h1>Historial de labores</h1>
+            <p class="intro">Consulta las labores guardadas durante esta demostración.</p>
+          </div>
+          <button class="primary-button heading-action" data-go="registro" type="button"><span aria-hidden="true">＋</span> Nuevo registro</button>
+        </div>
 
         <article class="panel table-panel">
+          <div class="table-heading">
+            <div>
+              <h2>Registros recientes</h2>
+              <p>Detalle de las labores añadidas al prototipo.</p>
+            </div>
+            <span class="table-badge"><span class="status-dot"></span> Demostración</span>
+          </div>
           <div class="table-wrap">
             <table>
               <thead>
@@ -157,9 +252,12 @@
             </table>
           </div>
           <p id="emptyMessage" class="empty-message">
-            Todavía no hay registros. Prueba el formulario.
+            <span class="empty-icon" aria-hidden="true">☷</span>
+            <strong>Todavía no hay registros</strong>
+            <span>Cuando guardes una labor, aparecerá aquí.</span>
           </p>
         </article>
+        <p class="page-footnote"><span aria-hidden="true">ⓘ</span> En esta etapa, el historial solo refleja los datos guardados en este navegador.</p>
       </section>
     </main>
   </div>
