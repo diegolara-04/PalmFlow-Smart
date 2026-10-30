@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba de voz - PalmFlow Smart</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f0;
+            margin: 0;
+            padding: 25px;
+            color: #203b2c;
+        }
+
+        .contenedor {
+            max-width: 500px;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px #00000012;
+            text-align: center;
+        }
+
+        h1 {
+            color: #245b3b;
+        }
+
+        .microfono {
+            background: #267448;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 85px;
+            height: 85px;
+            font-size: 35px;
+            cursor: pointer;
+            margin: 20px;
+        }
+
+        .microfono:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #estado {
+            color: #647568;
+            font-size: 14px;
+            min-height: 20px;
+        }
+
+        #transcripcion {
+            background: #f4f7f3;
+            border: 1px solid #d7e2d7;
+            border-radius: 10px;
+            padding: 15px;
+            min-height: 100px;
+            text-align: left;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+
+        .acciones {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .acciones button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        #limpiar {
+            background: #e6eee6;
+            color: #245b3b;
+        }
+
+        #copiar {
+            background: #267448;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contenedor">
+        <h1>PalmFlow Smart</h1>
+        <p>Prueba de reconocimiento de voz</p>
+
+        <button id="microfono" class="microfono">
+            🎙
+        </button>
+
+        <p id="estado">Presiona el micrófono para comenzar.</p>
+
+        <h3>Texto reconocido:</h3>
+
+        <div id="transcripcion">
+            Aquí aparecerá lo que digas...
+        </div>
+
+        <div class="acciones">
+            <button id="limpiar">Limpiar</button>
+            <button id="copiar">Copiar texto</button>
+        </div>
+    </div>
+
+    <script>
+        const botonMicrofono = document.getElementById("microfono");
+        const estado = document.getElementById("estado");
+        const transcripcion = document.getElementById("transcripcion");
+        const botonLimpiar = document.getElementById("limpiar");
+        const botonCopiar = document.getElementById("copiar");
+
+        const SpeechRecognition =
+            window.SpeechRecognition ||
+            window.webkitSpeechRecognition;
+
+        if (!SpeechRecognition) {
+            estado.textContent =
+                "Este navegador no admite reconocimiento de voz. Prueba con Chrome.";
+            botonMicrofono.disabled = true;
+        } else {
+            const reconocimiento = new SpeechRecognition();
+
+            reconocimiento.lang = "es-CO";
+            reconocimiento.continuous = false;
+            reconocimiento.interimResults = true;
+
+            let textoFinal = "";
+
+            botonMicrofono.addEventListener("click", () => {
+                try {
+                    reconocimiento.start();
+                } catch (error) {
+                    estado.textContent =
+                        "El reconocimiento ya está iniciado. Espera un momento.";
+                }
+            });
+
+            reconocimiento.onstart = () => {
+                estado.textContent = "Escuchando... habla ahora.";
+                botonMicrofono.textContent = "🔴";
+                botonMicrofono.disabled = true;
+            };
+
+            reconocimiento.onresult = (event) => {
+                let textoTemporal = "";
+
+                for (
+                    let i = event.resultIndex;
+                    i < event.results.length;
+                    i++
+                ) {
+                    const texto =
+                        event.results[i][0].transcript;
+
+                    if (event.results[i].isFinal) {
+                        textoFinal += texto + " ";
+                    } else {
+                        textoTemporal += texto;
+                    }
+                }
+
+                transcripcion.textContent =
+                    (textoFinal + textoTemporal).trim() ||
+                    "No se ha reconocido texto.";
+            };
+
+            reconocimiento.onerror = (event) => {
+                const mensajes = {
+                    "not-allowed": "Debes permitir el acceso al micrófono.",
+                    "no-speech": "No se detectó voz. Inténtalo de nuevo.",
+                    "network": "Hay un problema de conexión. Inténtalo nuevamente.",
+                    "audio-capture": "No se encontró un micrófono disponible."
+                };
+
+                estado.textContent =
+                    mensajes[event.error] ||
+                    "Ocurrió un error: " + event.error;
+            };
+
+            reconocimiento.onend = () => {
+                estado.textContent = "Puedes iniciar otra grabación.";
+                botonMicrofono.textContent = "🎙";
+                botonMicrofono.disabled = false;
+            };
+
+            botonLimpiar.addEventListener("click", () => {
+                textoFinal = "";
+                transcripcion.textContent =
+                    "Aquí aparecerá lo que digas...";
+                estado.textContent = "Texto limpiado.";
+            });
+
+            botonCopiar.addEventListener("click", async () => {
+                const texto = transcripcion.textContent;
+
+                if (!texto || texto === "Aquí aparecerá lo que digas...") {
+                    estado.textContent = "No hay texto para copiar.";
+                    return;
+                }
+
+                try {
+                    await navigator.clipboard.writeText(texto);
+                    estado.textContent = "Texto copiado.";
+                } catch (error) {
+                    estado.textContent =
+                        "No se pudo copiar. Selecciona el texto manualmente.";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
