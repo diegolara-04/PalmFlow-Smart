@@ -147,32 +147,11 @@
           <span class="form-intro-icon" aria-hidden="true">✳</span>
           <div>
             <strong>Registra la actividad con claridad</strong>
-            <p>Verifica el sector, la línea y el identificador de la palma antes de guardar.</p>
+            <p>Verifica el código único de la palma y su ubicación antes de guardar.</p>
           </div>
         </div>
 
         <form id="laborForm" class="panel form-panel">
-          <section class="voice-panel" aria-labelledby="voiceTitle">
-            <div class="voice-panel-heading">
-              <span class="voice-icon" aria-hidden="true">🎙</span>
-              <div>
-                <h2 id="voiceTitle">Registro asistido por voz</h2>
-                <p>Dicta la información de la labor y revisa la transcripción antes de completar el formulario.</p>
-              </div>
-            </div>
-            <div class="voice-controls">
-              <button id="startVoice" class="primary-button voice-button" type="button">🎙 Iniciar dictado</button>
-              <button id="stopVoice" class="secondary-button voice-button" type="button" disabled>Detener</button>
-              <span id="voiceStatus" class="voice-status" role="status" aria-live="polite">Micrófono listo para usar.</span>
-            </div>
-            <label class="voice-transcript-label" for="voiceTranscript">Transcripción reconocida</label>
-            <textarea id="voiceTranscript" rows="3" placeholder="Aquí aparecerán las palabras reconocidas por el micrófono..."></textarea>
-            <div class="voice-footer">
-              <span>La transcripción no guarda el registro automáticamente. Verifica los datos y completa los campos del formulario.</span>
-              <button id="copyTranscript" class="text-button" type="button">Pasar a observaciones</button>
-            </div>
-          </section>
-
           <div class="form-section-heading">
             <span class="form-section-number">01</span>
             <div>
@@ -191,9 +170,9 @@
               <input name="linea" placeholder="Ej. 2" autocomplete="off" required>
             </label>
             <label class="full-width">
-              Identificador de palma <span class="required-mark">*</span>
-              <input name="palma" placeholder="Ej. 042" autocomplete="off" required>
-              <span class="field-hint">En una versión futura, este campo podría completarse escaneando un código QR.</span>
+              Código único de palma <span class="required-mark">*</span>
+              <input name="palma" placeholder="Ej. PAL-000042" autocomplete="off" pattern="PAL-[0-9]{6}" title="Usa el formato PAL-000042" required>
+              <span class="field-hint">Identificador visible y único. El código definitivo se confirmará con la numeración oficial de Palmasol; el QR podrá llevar a este mismo código.</span>
             </label>
           </div>
 
@@ -229,6 +208,16 @@
               Observaciones <span class="optional-mark">(opcional)</span>
               <textarea name="observaciones" rows="4" placeholder="Añade información adicional sobre la labor..."></textarea>
             </label>
+            <div class="full-width voice-panel">
+              <div class="voice-panel-copy"><strong>Registro por voz</strong><p>Dicta una observación y revisa el texto antes de guardarlo.</p></div>
+              <div class="voice-controls">
+                <button type="button" class="secondary-green-button" id="startVoice">🎙 Iniciar dictado</button>
+                <button type="button" class="secondary-button" id="stopVoice" disabled>Detener</button>
+                <button type="button" class="secondary-button" id="copyTranscript">Pasar a observaciones</button>
+              </div>
+              <textarea id="voiceTranscript" rows="2" placeholder="Aquí aparecerá la transcripción para que puedas revisarla..."></textarea>
+              <p id="voiceStatus" class="voice-status" aria-live="polite">Micrófono listo. Puedes escribir manualmente si lo prefieres.</p>
+            </div>
           </div>
 
           <div class="form-actions">

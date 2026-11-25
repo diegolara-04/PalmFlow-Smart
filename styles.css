@@ -309,31 +309,13 @@ tbody tr:last-child td { border-bottom: 0; }
 }
 
 
-/* Registro asistido por voz */
-.voice-panel {
-  margin-bottom: 28px;
-  padding: 19px;
-  border: 1px solid #d5e5d4;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #f3f8f0 0%, #eaf3e8 100%);
-}
-.voice-panel-heading { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 15px; }
-.voice-icon { display: grid; place-items: center; flex: 0 0 38px; width: 38px; height: 38px; border-radius: 11px; background: #d9ead5; font-size: 19px; }
-.voice-panel-heading h2 { margin: 1px 0 0; color: var(--green-950); font-size: 15px; }
-.voice-panel-heading p { margin: 5px 0 0; color: #667e6a; font-size: 12px; line-height: 1.5; }
-.voice-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; margin-bottom: 14px; }
-.voice-button { min-height: 39px; padding: 10px 13px; }
-.voice-button:disabled { opacity: .48; cursor: not-allowed; transform: none; box-shadow: none; }
-.voice-status { color: #607665; font-size: 11px; }
-.voice-status.is-listening { color: #287a52; font-weight: 800; }
-.voice-status.is-error { color: #a64b38; }
-.voice-transcript-label { display: block; margin-bottom: 8px; color: #344b3d; font-size: 12px; font-weight: 700; }
-.voice-panel textarea { background: rgba(255,255,255,.85); }
-.voice-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 10px; color: #718077; font-size: 10px; line-height: 1.5; }
-.text-button { padding: 5px 0; border: 0; background: transparent; color: var(--green-700); font-size: 11px; font-weight: 800; white-space: nowrap; }
-.text-button:hover { color: var(--green-950); text-decoration: underline; }
-@media (max-width: 600px) {
-  .voice-panel { padding: 15px 12px; }
-  .voice-footer { align-items: flex-start; flex-direction: column; gap: 5px; }
-  .voice-controls { align-items: flex-start; }
-}
+/* Panel de dictado por voz */
+.voice-panel { display:flex; flex-direction:column; gap:10px; padding:16px; border:1px solid #dce8dc; border-radius:10px; background:#f7faf6; }
+.voice-panel-copy strong { color:#234b37; font-size:13px; }
+.voice-panel-copy p { margin:4px 0 0; color:#718074; font-size:11px; line-height:1.5; }
+.voice-controls { display:flex; flex-wrap:wrap; gap:8px; }
+.voice-controls button { min-height:38px; }
+.voice-controls button:disabled { opacity:.5; cursor:not-allowed; }
+.voice-status { margin:0; color:#64776a; font-size:11px; line-height:1.5; }
+.voice-status.is-listening { color:#247348; font-weight:700; }
+.voice-status.is-error { color:#a33b35; }
