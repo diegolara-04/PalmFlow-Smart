@@ -152,6 +152,27 @@
         </div>
 
         <form id="laborForm" class="panel form-panel">
+          <section class="voice-panel" aria-labelledby="voiceTitle">
+            <div class="voice-panel-heading">
+              <span class="voice-icon" aria-hidden="true">🎙</span>
+              <div>
+                <h2 id="voiceTitle">Registro asistido por voz</h2>
+                <p>Dicta la información de la labor y revisa la transcripción antes de completar el formulario.</p>
+              </div>
+            </div>
+            <div class="voice-controls">
+              <button id="startVoice" class="primary-button voice-button" type="button">🎙 Iniciar dictado</button>
+              <button id="stopVoice" class="secondary-button voice-button" type="button" disabled>Detener</button>
+              <span id="voiceStatus" class="voice-status" role="status" aria-live="polite">Micrófono listo para usar.</span>
+            </div>
+            <label class="voice-transcript-label" for="voiceTranscript">Transcripción reconocida</label>
+            <textarea id="voiceTranscript" rows="3" placeholder="Aquí aparecerán las palabras reconocidas por el micrófono..."></textarea>
+            <div class="voice-footer">
+              <span>La transcripción no guarda el registro automáticamente. Verifica los datos y completa los campos del formulario.</span>
+              <button id="copyTranscript" class="text-button" type="button">Pasar a observaciones</button>
+            </div>
+          </section>
+
           <div class="form-section-heading">
             <span class="form-section-number">01</span>
             <div>
